@@ -6,7 +6,10 @@ export const registerProduct = z.object({
   region: z.string({
     required_error: 'Region of the Product are required'
   }),
-  category: z.enum(['Gomitas', 'Galletas', 'Turrones', 'Dulces de leche', 'otros'], {
+  price: z.number({
+    required_error: 'Price of the product are required'
+  }),
+  category: z.enum(['Gomitas', 'Galletas', 'Turrones', 'Dulces de leche', 'Helados', 'Otros'], {
     required_error: 'Category of the product are required'
   })
 })

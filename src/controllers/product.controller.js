@@ -1,20 +1,20 @@
 import ProductModel from '../models/product.model.js'
 export const newProduct = async (req, res) => {
-  const { name, region, category } = req.body
+  const { name, region, price, category } = req.body
   try {
     const newProduct = new ProductModel({
       name,
       region,
+      price,
       category,
-      user: req.user.id // Aquí se debe usar "user" en lugar de "offerBy"
+      user: req.user.id // anclaje al usuario que registra el producto
     })
     const saveProduct = await newProduct.save()
     console.log(saveProduct)
     res.json(saveProduct)
   } catch (err) {
     return res.status(500).json({
-      message: 'Bad request, Server response',
-      error: err // Cambié "err" a la propiedad "error"
+      message: 'Bad request, Server response: ', err
     })
   }
 }

@@ -8,9 +8,13 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  price: {
+    type: Number,
+    required: true
+  },
   category: {
     type: String,
-    enum: ['Gomitas', 'Galletas', 'Turrones', 'Dulces de leche', 'otros'],
+    enum: ['Gomitas', 'Galletas', 'Turrones', 'Dulces de leche', 'Helados', 'Otros'],
     required: true
   },
   user: {
