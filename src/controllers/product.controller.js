@@ -43,3 +43,37 @@ export const getProductsGuest = async (req, res) => {
     })
   }
 }
+
+export const getProduct = async (req, res) => {
+  try {
+    const product = await ProductModel.findById(req.params.id)
+    if (!product) {
+      return res.status(404).json({
+        message: 'you not have task'
+      })
+    } else {
+      res.json(product)
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Something goes wrong'
+    })
+  }
+}
+
+export const deleteProducts = async (req, res) => {
+  try {
+    const product = await ProductModel.findByIdAndDelete(req.params.id)
+    if (!product) {
+      return res.status(404).json({
+        message: 'Product not found'
+      })
+    } else {
+      return res.sendStatus(204)
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Something goes wrong'
+    })
+  }
+}
