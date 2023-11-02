@@ -34,7 +34,7 @@ export const getProductsSeller = async (req, res) => {
 
 export const getProductsGuest = async (req, res) => {
   try {
-    const products = await ProductModel.find({}).populate('user')
+    const products = await ProductModel.find({}).populate('user').sort({ price: -1 })
     console.log(req.user)
     res.json(products)
   } catch (err) {
