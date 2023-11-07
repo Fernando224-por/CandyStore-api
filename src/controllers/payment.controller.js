@@ -1,11 +1,18 @@
-import paymentModel from "../models/payment.model.js";
+// import paymentModel from "../models/payment.model.js";
 import Stripe from 'stripe'
-import { STRIPE_SECRET_KEY } from '../config.js'
+import { STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY } from '../config.js'
 const stripe = new Stripe(STRIPE_SECRET_KEY)
 
+export const keyPayment = (req, res) => {
+  res.send({
+    publishableKey: STRIPE_PUBLISHABLE_KEY
+  })
+}
+
 export const loginPayment = async (req, res) => {
+  const { mail } = req.body
   const customer = await stripe.customers.create({
-    email: req.body.email
+    email: mail
   })
   if (customer) {
     return res.status(200).json({
@@ -21,12 +28,12 @@ export const loginPayment = async (req, res) => {
 export const newPayment = async (req, res) => {
   const { amount, description, customerId, seller } = req.body
   try {
-    console.log(amount)
-    console.log(description)
-    console.log(customerId)
-    console.log(seller)
+    console.log('Amount: ', amount)
+    console.log('Description: ', description)
+    console.log('Client: ', customerId)
+    console.log('Seller: ', seller)
     return res.status(200).json({
-      message: 'Success data'
+      message: 'Success, check you console'
     })
   } catch (error) {
     console.error(error)
