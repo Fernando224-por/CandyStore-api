@@ -10,7 +10,7 @@ const PaymentSchema = new mongoose.Schema({
   },
   customerId: {
     type: String,
-    required: true
+    required: false
   },
   seller: {
     type: mongoose.Schema.Types.ObjectId,

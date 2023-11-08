@@ -7,8 +7,8 @@ export const registerPayment = z.object({
   }),
   description: z.string({
     required_error: 'Description of the payment are required'
-  }),
+  })/*,
   customerId: z.string({
     required_error: 'CustomerId of the payment are required'
-  })
+  }) */
 })

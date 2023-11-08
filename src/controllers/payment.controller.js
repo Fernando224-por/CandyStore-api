@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 // import paymentModel from "../models/payment.model.js";
 import Stripe from 'stripe'
 import { STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY } from '../config.js'
@@ -26,16 +27,20 @@ export const loginPayment = async (req, res) => {
 }
 
 export const newPayment = async (req, res) => {
-  const { amount, description, customerId, seller } = req.body
+  const { amount, description, seller } = req.body
   try {
-    console.log('Amount: ', amount)
-    console.log('Description: ', description)
-    console.log('Client: ', customerId)
-    console.log('Seller: ', seller)
-    return res.status(200).json({
-      message: 'Success, check you console'
+    const paymentIntent = await stripe.paymentIntents.create({
+      currency: 'USD',
+      amount: amount * 100,
+      description: `pago de ${description}`,
+      automatic_payment_methods: { enabled: true }
     })
-  } catch (error) {
-    console.error(error)
+    return res.status(200).json({
+      clientSecret: paymentIntent.client_secret
+    })
+  } catch (err) {
+    return res.status(404).json({
+      error: err.message
+    })
   }
 }
